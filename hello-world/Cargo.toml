@@ -1,0 +1,20 @@
+[package]
+name = "hello-world"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "hello-world"
+type = "ERA"
+name = "Hello World!"
+description = "A minimal third-party Era app example"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2
