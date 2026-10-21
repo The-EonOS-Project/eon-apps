@@ -1,0 +1,19 @@
+[package]
+name = "crash-analyzer"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "crash-analyzer"
+type = "ERA"
+name = "Crash Report Analyzer"
+description = "Explains the saved EonOS panic report"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2

@@ -1,0 +1,19 @@
+[package]
+name = "sha256"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "sha256"
+type = "SHELL"
+name = "SHA-256 Checker"
+description = "Print the SHA-256 digest of a readable file"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2

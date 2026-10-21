@@ -1,0 +1,19 @@
+[package]
+name = "pomodoro"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "pomodoro"
+type = "ERA"
+name = "Pomodoro Timer"
+description = "A focus timer with five-minute breaks"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2

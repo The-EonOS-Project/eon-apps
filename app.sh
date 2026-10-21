@@ -19,9 +19,9 @@ Usage:
   ./app.sh build <app-directory>
 
 `new` creates a small no_std Rust application project. `build` compiles it for
-EonOS and writes build/apps/<id>.eonapp, plus a copy in this repository for
-apps directly under its root. Copy the package onto the EonOS data disk, then
-run `install /disk/<id>.eonapp` in EonOS.
+EonOS and writes build/apps/<id>.eonapp, plus a copy in this repository when
+the app project is stored under this repository. Copy the package onto the
+EonOS data disk, then run `install /disk/<id>.eonapp` in EonOS.
 EOF
 }
 
@@ -156,7 +156,7 @@ pathlib.Path(package_path).write_bytes(
     b"EONAPP1\0" + struct.pack("<IQ", len(metadata), len(elf)) + metadata + elf
 )
 PY
-    if [[ "$(dirname "$source")" == "$APP_REPO" ]]; then
+    if [[ "$source" == "$APP_REPO/"* ]]; then
         packaged_copy="$APP_REPO/$id.eonapp"
         cp "$package_file" "$packaged_copy"
         echo "Copied package to $packaged_copy"
