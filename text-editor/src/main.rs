@@ -184,6 +184,24 @@ fn char_boundary_after_chars(text: &str, start: usize, end: usize, count: usize)
     text[start..end].char_indices().nth(count).map(|(offset, _)| start + offset).unwrap_or(end)
 }
 
+fn editor_cursor_at(doc: &Document, x: i32, y: i32) -> Option<usize> {
+    if x < EDITOR_X || x >= EDITOR_X + EDITOR_W as i32 || y < 98 || y >= 442 { return None; }
+    let line_number = doc.first_line + ((y - 98) / LINE_HEIGHT) as usize;
+    let mut line_start = 0;
+    for _ in 0..line_number {
+        let newline = doc.text[line_start..].find('\n')?;
+        line_start += newline + 1;
+    }
+    let line_end = doc.text[line_start..].find('\n').map(|offset| line_start + offset).unwrap_or(doc.text.len());
+    let cursor_column = if doc.cursor_line() == line_number {
+        Some(doc.text[line_start..doc.cursor.min(line_end)].chars().count())
+    } else { None };
+    let start_column = cursor_column.map(|column| column.saturating_sub(CHARS_PER_LINE.saturating_sub(1))).unwrap_or(0);
+    let clicked_column = ((x - EDITOR_X - 8).max(0) / 8) as usize;
+    let target_column = start_column.saturating_add(clicked_column).min(doc.text[line_start..line_end].chars().count());
+    Some(line_start + doc.text[line_start..line_end].char_indices().nth(target_column).map(|(offset, _)| offset).unwrap_or(line_end - line_start))
+}
+
 fn draw_line(window: &mut eonos_app::era::Window, line: &str, y: i32, cursor_column: Option<usize>, selection: Option<(usize, usize)>) {
     let start_column = cursor_column
         .map(|column| column.saturating_sub(CHARS_PER_LINE.saturating_sub(1)))
@@ -291,11 +309,31 @@ fn main(_args: eonos_app::Args<'_>) -> i32 {
     let mut doc = Document::new();
     let mut find_query = String::new();
     let mut quit = false;
+    let mut pointer_left = false;
+    let mut selection_anchor = None;
     while !quit {
         while let Ok(Some(event)) = window.poll_event() {
             use eonos_app::era::Event;
             match event {
                 Event::Close => { if confirm_discard(&mut window, &doc) { quit = true; } }
+                Event::Pointer { x, y, buttons } => {
+                    let down = buttons & 1 != 0;
+                    if down {
+                        if let Some(position) = editor_cursor_at(&doc, x, y) {
+                            if !pointer_left {
+                                selection_anchor = Some(position);
+                                doc.selection = None;
+                            }
+                            doc.cursor = position;
+                            if let Some(anchor) = selection_anchor {
+                                if anchor != position { doc.selection = Some((anchor.min(position), anchor.max(position))); }
+                            }
+                        }
+                    } else {
+                        selection_anchor = None;
+                    }
+                    pointer_left = down;
+                }
                 Event::Key { usage, pressed: true, modifiers } => {
                     let ctrl = modifiers & 0x11 != 0;
                     let shift = modifiers & 0x22 != 0;

@@ -13,6 +13,7 @@ utilities are:
 - `text-editor`: Era text editor with Open, Save, Save As, and unsaved-change prompts.
 - `calculator`: mouse and keyboard calculator with basic arithmetic and adjustable result precision.
 - `web-viewer`: small Era app for fetching and reading HTTP(S) pages through the SDK.
+- `app-manager`: built-in Era app for listing installed apps, installing or updating local `.eonapp` packages, and removing user-installed apps.
 
 Build a package from this repository's root:
 
@@ -31,6 +32,7 @@ project directory. Build each app with the same command:
 ./app.sh build text-editor
 ./app.sh build calculator
 ./app.sh build web-viewer
+./app.sh build app-manager
 ```
 
 By default, this repo expects to be checked out next to EonOS and uses its
@@ -56,6 +58,13 @@ install /packages/text-editor.eonapp
 install /packages/calculator.eonapp
 install /packages/web-viewer.eonapp
 ```
+
+The EonOS image build also compiles `app-manager` automatically when this repo
+is checked out beside EonOS as `eon-apps`. It is registered under `/apps` as a
+built-in Era application and its package is bundled in `/packages` for recovery.
+In Era, open **App Manager** to find installed applications and available
+packages in `/disk/eonappfiles`, `/disk`, and `/packages`. Installing,
+updating, or removing an app requires `/disk` to be mounted.
 
 Crash Report Analyzer reads `/disk/crashlog.txt`. Pomodoro Timer provides 15,
 25, and 45 minute focus sessions with five-minute breaks. Minesweeper uses the

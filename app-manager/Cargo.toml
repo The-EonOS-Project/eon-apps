@@ -1,0 +1,19 @@
+[package]
+name = "app-manager"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "app-manager"
+type = "ERA"
+name = "App Manager"
+description = "Install, update, and remove EonOS apps"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2
