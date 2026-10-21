@@ -59,4 +59,7 @@ to the SDK's 1 MiB `read_file` limit. The interactive apps use the safe window
 API from `eonos-app`.
 
 Text Editor reads and writes UTF-8 text files under `/disk`, supports keyboard
-editing and cursor movement, and prompts before discarding unsaved changes.
+editing and cursor movement, and prompts before discarding unsaved changes. Use
+Find, Prev, and Next to navigate selected matches; Replace changes the selected
+or next match, while Replace All changes every match. Ctrl+F opens Find, Ctrl+H
+opens Replace, and Ctrl+Shift+H opens Replace All.
