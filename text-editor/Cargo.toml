@@ -1,0 +1,19 @@
+[package]
+name = "text-editor"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "text-editor"
+type = "ERA"
+name = "Text Editor"
+description = "Create, edit, and save text files on /disk"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2
