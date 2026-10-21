@@ -12,7 +12,6 @@ description = "A minimal third-party Era app example"
 [dependencies]
 eonos-app = { path = "../../userland/app-sdk" }
 
-
 [profile.release]
 panic = "abort"
 strip = true
