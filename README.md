@@ -11,6 +11,7 @@ utilities are:
 - `minesweeper`: mouse-playable Era game.
 - `sha256`: shell command that hashes a readable file up to the SDK's 1 MiB limit.
 - `text-editor`: Era text editor with Open, Save, Save As, and unsaved-change prompts.
+- `calculator`: mouse and keyboard calculator with basic arithmetic and adjustable result precision.
 
 Build a package from this repository's root:
 
@@ -27,6 +28,7 @@ project directory. Build each app with the same command:
 ./app.sh build sha256
 ./app.sh build minesweeper
 ./app.sh build text-editor
+./app.sh build calculator
 ```
 
 By default, this repo expects to be checked out next to EonOS and uses its
@@ -49,6 +51,7 @@ install /packages/pomodoro.eonapp
 install /packages/sha256.eonapp
 install /packages/minesweeper.eonapp
 install /packages/text-editor.eonapp
+install /packages/calculator.eonapp
 ```
 
 Crash Report Analyzer reads `/disk/crashlog.txt`. Pomodoro Timer provides 15,
@@ -63,3 +66,8 @@ editing and cursor movement, and prompts before discarding unsaved changes. Use
 Find, Prev, and Next to navigate selected matches; Replace changes the selected
 or next match, while Replace All changes every match. Ctrl+F opens Find, Ctrl+H
 opens Replace, and Ctrl+Shift+H opens Replace All.
+
+Calculator supports addition, subtraction, multiplication, division, percent,
+sign changes, decimal input, and an adjustable 0–8 digit result precision. Use
+the number keys to enter values and the on-screen controls or keyboard operators
+to calculate. Enter evaluates the current expression; Escape closes the window.

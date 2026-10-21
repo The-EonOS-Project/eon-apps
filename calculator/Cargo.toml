@@ -1,0 +1,19 @@
+[package]
+name = "calculator"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.eonos]
+id = "calculator"
+type = "ERA"
+name = "Calculator"
+description = "A desktop calculator with keyboard and mouse input"
+
+[dependencies]
+eonos-app = { path = "../../userland/app-sdk" }
+
+[profile.release]
+panic = "abort"
+strip = true
+lto = true
+opt-level = 2
