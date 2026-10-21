@@ -12,6 +12,7 @@ utilities are:
 - `sha256`: shell command that hashes a readable file up to the SDK's 1 MiB limit.
 - `text-editor`: Era text editor with Open, Save, Save As, and unsaved-change prompts.
 - `calculator`: mouse and keyboard calculator with basic arithmetic and adjustable result precision.
+- `web-viewer`: small Era app for fetching and reading HTTP(S) pages through the SDK.
 
 Build a package from this repository's root:
 
@@ -29,6 +30,7 @@ project directory. Build each app with the same command:
 ./app.sh build minesweeper
 ./app.sh build text-editor
 ./app.sh build calculator
+./app.sh build web-viewer
 ```
 
 By default, this repo expects to be checked out next to EonOS and uses its
@@ -52,6 +54,7 @@ install /packages/sha256.eonapp
 install /packages/minesweeper.eonapp
 install /packages/text-editor.eonapp
 install /packages/calculator.eonapp
+install /packages/web-viewer.eonapp
 ```
 
 Crash Report Analyzer reads `/disk/crashlog.txt`. Pomodoro Timer provides 15,
@@ -71,3 +74,8 @@ Calculator supports addition, subtraction, multiplication, division, percent,
 sign changes, decimal input, and an adjustable 0–8 digit result precision. Use
 the number keys to enter values and the on-screen controls or keyboard operators
 to calculate. Enter evaluates the current expression; Escape closes the window.
+
+Web Fetch Viewer starts at `https://example.com`. Enter another HTTP(S) address
+and select Fetch; use Up and Down to scroll the returned title and plain text.
+It intentionally does not render images, scripts, stylesheets, or interactive
+web content.
